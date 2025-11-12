@@ -75,3 +75,8 @@ Performs **all security checks**, generates **reports and dashboard**, but **app
 # or
 .\AD-Hardening-Playbook-Ultimate.ps1 -Apply -Force
 
+## 🧩 Dashboard Preview
+
+****<img width="1536" height="1024" alt="dashboard-preview" src="https://github.com/user-attachments/assets/a75b1d0a-bb16-41c7-9f25-ba63a37b59a7" />
+
+
