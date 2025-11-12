@@ -1,76 +1,69 @@
-# 🛡️ AD Hardening Playbook Ultimate
-**Advanced Active Directory Security Audit & Safe Remediation Toolkit**  
-by [Raffaele Fusco](https://www.linkedin.com/in/raffaelefusco/)  
-License: [MIT](./LICENSE)
+🛡️ AD Hardening Playbook Ultimate
+Advanced Active Directory Security Audit & Safe Remediation Toolkit
+by Raffaele Fusco
+License: MIT
 
----
+🌍 Overview
+AD-Hardening-Playbook-Ultimate.ps1 is an enterprise-grade PowerShell script designed for auditing, remediation, and reporting on Active Directory security.
+👉 It’s built for:
 
-## 🌍 Overview
-**AD-Hardening-Playbook-Ultimate.ps1** è uno script PowerShell enterprise-grade progettato per **auditing, remediation e reporting** della sicurezza di un ambiente Active Directory.
 
-👉 È pensato per:
-- team **IT Security / Infrastructure**
-- **pentester difensivi** o **auditor**
-- system engineer che vogliono **automatizzare il controllo delle policy critiche**
+IT Security / Infrastructure teams
 
-Lo script combina in un’unica soluzione:
-- Audit multipli e parametrici (SMBv1, NTLM, RDP, LAPS, LDAP, Kerberos)
-- Backup GPO automatici (completo e selettivo)
-- Dashboard HTML interattiva (grafici + heatmap)
-- Modalità *dry-run* sicura + remediation controllata
 
----
+Defensive pentesters or security auditors
 
-## 🧩 Features
 
-| Categoria | Descrizione | Severità stimata |
-|------------|--------------|------------------|
-| 🔹 **SMBv1** | Scansione e disabilitazione feature legacy | 🔥 High |
-| 🔹 **NTLM Compatibility** | Verifica livello `LmCompatibilityLevel` | 🔥 High |
-| 🔹 **RDP NLA** | Controllo autenticazione di rete su host server | ⚠️ Medium |
-| 🔹 **Local Admins** | Enumerazione membri gruppo Administrators locali | ⚠️ Medium |
-| 🔹 **LAPS** | Verifica schema, estensione client, GPO attiva | 🔥 High |
-| 🔹 **LDAP Signing / Channel Binding** | Controllo chiavi `LDAPServerIntegrity` e `ChannelBindingToken` | 🔥 High |
-| 🔹 **Kerberos Ticket Lifetime** | Controllo `MaxTicketAge`, `MaxRenewAge`, `MaxServiceAge` | ⚠️ Medium |
-| 🔹 **GPO Backup** | Backup selettivo (DDP/DDCP) + completo pre-remediation | 🟢 Safe |
-| 🔹 **Dashboard HTML** | Chart.js + Heatmap Host × Categoria | 💎 Visual |
+System engineers who want to automate the enforcement of critical policies
 
----
 
-## 📁 Output
-Dopo l’esecuzione, lo script genera automaticamente:
+This script combines multiple functions in one solution:
 
+
+Multi-layered and parameterized audits (SMBv1, NTLM, RDP, LAPS, LDAP, Kerberos)
+
+
+Automatic GPO backups (full and selective)
+
+
+Interactive HTML dashboard (charts + heatmap)
+
+
+Safe dry-run mode + controlled remediation
+
+
+
+🧩 Features
+CategoryDescriptionEstimated Severity🔹 SMBv1Scan and disable legacy SMBv1 feature🔥 High🔹 NTLM CompatibilityCheck LmCompatibilityLevel setting🔥 High🔹 RDP NLAVerify Network Level Authentication on servers⚠️ Medium🔹 Local AdminsEnumerate members of local Administrators groups⚠️ Medium🔹 LAPSCheck schema, client extension, and GPO status🔥 High🔹 LDAP Signing / Channel BindingValidate LDAPServerIntegrity and ChannelBindingToken🔥 High🔹 Kerberos Ticket LifetimeAudit MaxTicketAge, MaxRenewAge, MaxServiceAge⚠️ Medium🔹 GPO BackupSelective (DDP/DDCP) + full backup before remediation🟢 Safe🔹 HTML DashboardChart.js + Host × Category heatmap💎 Visual
+
+📁 Output
+After execution, the script automatically generates:
 C:\Temp
 ├─ ADHardeningReport_YYYYMMDD_HHmmss
-│ ├─ findings.json
-│ ├─ findings.csv
-│ ├─ report.html
-│ ├─ dashboard.html
-│ ├─ run.log
-│ └─ ADHardening_YYYYMMDD_HHmmss.zip
+│   ├─ findings.json
+│   ├─ findings.csv
+│   ├─ report.html
+│   ├─ dashboard.html
+│   ├─ run.log
+│   └─ ADHardening_YYYYMMDD_HHmmss.zip
 │
 ├─ GPO_Backups
-│ └─ GPOBackup_YYYYMMDD_HHmmss
-│ ├─ GPO_Backup_Manifest.json
-│ └─ [Backup GPO files...]
+│   └─ GPOBackup_YYYYMMDD_HHmmss
+│       ├─ GPO_Backup_Manifest.json
+│       └─ [Backup GPO files...]
 │
 └─ GPO_Backups_Selective
-├─ Default_Domain_Policy.zip
-└─ Default_Domain_Controllers_Policy.zip
+    ├─ Default_Domain_Policy.zip
+    └─ Default_Domain_Controllers_Policy.zip
 
 
----
-
-## ⚙️ Utilizzo
-
-### ✅ Modalità Dry-Run (default)
-Esegue **tutti i controlli**, genera **report e dashboard**, ma **non applica modifiche**.
-
-```powershell
+⚙️ Usage
+✅ Dry-Run Mode (default)
+Performs all security checks, generates reports and dashboard, but applies no changes.
 .\AD-Hardening-Playbook-Ultimate.ps1
 
-### ✅ Modalità Apply
-
+✅ Apply Mode
+Executes safe remediations after automatically creating a full GPO backup.
 .\AD-Hardening-Playbook-Ultimate.ps1 -Apply
-# oppure
+# or
 .\AD-Hardening-Playbook-Ultimate.ps1 -Apply -Force
