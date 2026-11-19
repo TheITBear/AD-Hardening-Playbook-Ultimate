@@ -372,7 +372,7 @@ function Get-KerberosFinding {
 # ============= Findings synthesis =============
 function Get-HostFinding {
     param($Results, [bool]$IsDC)
-    $f = New-Object System.Collections.Generic.List[object]
+    $f = [System.Collections.Generic.List[object]]::new()
     foreach ($r in $Results) {
         if (-not $r.Reachable) {
             $f.Add((New-Finding -Category "Connectivity" -TargetHost $r.Host -Severity $(if ($IsDC) { "Medium" } else { "Low" }) `
@@ -418,7 +418,7 @@ function Get-HostFinding {
 
 function Get-DcFinding {
     param($Results)
-    $f = New-Object System.Collections.Generic.List[object]
+    $f = [System.Collections.Generic.List[object]]::new()
     foreach ($r in ($Results | Where-Object Reachable)) {
         $d = $r.Data
         $lm = $d.LmCompatibilityLevel
@@ -641,7 +641,7 @@ Write-Log "Remote probe on member servers (SMB/RDP/LocalAdmins)..."
 $srvHost = @(Invoke-Fanout -ComputerName $MemberServers -ScriptBlock $HostProbe -ArgumentList $true)
 Write-Log ("Remote probes completed in {0:N1}s" -f $sw.Elapsed.TotalSeconds)
 
-$findings = New-Object System.Collections.Generic.List[object]
+$findings = [System.Collections.Generic.List[object]]::new()
 foreach ($set in @(
         (Get-DcFinding -Results $dcReg),
         (Get-HostFinding -Results $dcHost -IsDC $true),
